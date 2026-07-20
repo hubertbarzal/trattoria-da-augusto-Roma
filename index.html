@@ -8,20 +8,16 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   
-  <!-- Google Fonts per Font Serif ed Eleganti -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    .font-serif {
-      font-family: 'Playfair Display', serif;
-    }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-serif { font-family: 'Playfair Display', serif; }
     
-    /* Reveal Animations */
+    /* Reveal Animations standard */
     [data-reveal] {
       opacity: 0;
       transform: translateY(28px);
@@ -31,16 +27,189 @@
       opacity: 1;
       transform: none;
     }
-    
     @keyframes slowZoom {
       from { transform: scale(1); }
-      to { transform: scale(1.08); }
+      to { transform: scale(1.05); }
     }
-    .animate-slow-zoom {
-      animation: slowZoom 20s ease infinite alternate;
-    }
+    .animate-slow-zoom { animation: slowZoom 20s ease infinite alternate; }
+    
+    /* Custom tailwind helper mappings per i colori del tuo tema React */
+    .bg-cream-50 { background-color: #FDFBF7; }
+    .text-charcoal-800 { color: #2D2A26; }
   </style>
 </head>
+<script>
+    // 1. Array Dati Equivalenti da React
+    const WEEK = [
+      { day: 'Lunedì', lunch: '12:30 – 15:00', dinner: '19:30 – 23:00' },
+      { day: 'Martedì', lunch: '12:30 – 15:00', dinner: '19:30 – 23:00' },
+      { day: 'Mercoledì', lunch: '12:30 – 15:00', dinner: '19:30 – 23:00' },
+      { day: 'Giovedì', lunch: '12:30 – 15:00', dinner: '19:30 – 23:00' },
+      { day: 'Venerdì', lunch: '12:30 – 15:00', dinner: '19:30 – 23:00' },
+      { day: 'Sabato', lunch: '12:30 – 15:00', dinner: '19:30 – 23:00' },
+      { day: 'Domenica', lunch: '12:30 – 15:00', dinner: '19:30 – 23:00' }
+    ];
+
+    const FEATURES = [
+      { title: 'Accessibilità e Accoglienza', icon: '♿', body: "L'inclusività e il comfort sono al centro della nostra filosofia ospitale: la struttura garantisce una totale libertà di movimento grazie a un ingresso completamente privo di barriere architettoniche e a tavoli appositamente predisposti per accogliere comodamente gli ospiti in sedia a rotelle o con mobilità ridotta." },
+      { title: 'Servizi e Momenti Ideali', icon: '🛎️', body: "Una proposta pensata per adattarsi a ogni ritmo della giornata, perfetta sia per un pranzo rigenerante che per una cena di qualità, accogliendo con naturalezza anche chi desidera godersi un pasto in solitaria. L'esperienza si completa con un impeccabile servizio al tavolo e la possibilità di accomodarsi all'aperto per assaporare ogni portata all'aria aperta." },
+      { title: 'Pianificazione e Pagamenti', icon: '📅', body: "Per assicurarvi un'esperienza senza pensieri, il locale offre la flessibilità di riservare il proprio tavolo in anticipo. Data la grande affluenza e la possibilità di incontrare tempi di attesa più prolungati nei momenti di punta, la prenotazione è fortemente consigliata per garantirsi il posto. Al momento del conto, la transazione è rapida e smart grazie al supporto per carte di credito, di debito e pagamenti mobile NFC." },
+      { title: "Un'Accoglienza per Tutti", icon: '👥', body: "Il ristorante è uno spazio pensato per far sentire a casa ogni generazione, ponendo una cura particolare nel creare un contesto sicuro, rilassato e perfettamente adatto alle famiglie con bambini, che troveranno un'atmosfera serena e calorosa ideale per le loro necessità." },
+      { title: 'Atmosfera ed Eccellenze', icon: '✨', body: "Il locale si distingue per un'anima affascinante e poliedrica, capace di fondere la suggestione di una cornice storica con un'atmosfera casual e decisamente di tendenza. È l'ambiente ideale sia per un break informale che per una serata speciale, arricchita da una sfiziosa selezione di dessert artigianali e da un eccellente servizio di caffetteria per chiudere in bellezza ogni pasto." },
+      { title: 'Proposte Culinarie e Bar', icon: '🍷', body: "La cucina rimane attiva anche per i nottambuli, offrendo la possibilità di gustare ottimi piatti e pasti completi fino a tarda sera. Altrettanto curata e profonda è la proposta del bar, che mette a disposizione una ricca carta dei vini, birre selezionate, superalcolici e cocktail ideali per accompagnare ogni momento della vostra permanenza." }
+    ];
+
+    const MENU = [
+      {
+        label: 'Antipasti', icon: '🥗', note: 'Per cominciare il viaggio con il sapore vero della tradizione',
+        items: [
+          { name: 'Carciofi alla Giudia', desc: 'Carciofi romaneschi fritti in olio extravergine, croccanti e dorati', price: '12€', tag: 'Specialità' },
+          { name: 'Carciofi alla Romana', desc: 'Carciofi brasati con mentuccia, aglio e olio, teneri al punto giusto', price: '11€', tag: 'Specialità' },
+          { name: 'Supplì al Telefono', desc: 'Riso al pomodoro impanato e fritto, con cuore di mozzarella filante', price: '6€' },
+          { name: 'Fiori di Zucca Fritti', desc: 'Fiori di zucca ripieni di mozzarella e acciughe, pastella leggera', price: '8€' }
+        ]
+      },
+      {
+        label: 'Primi Piatti', icon: '🍝', note: 'La pasta tirata a mano, cotta al momento, secondo le ricette di Roma',
+        items: [
+          { name: 'Cacio e Pepe', desc: 'Tonnarelli, pecorino romano DOP e pepe nero macinato al momento', price: '12€', tag: 'Icona' },
+          { name: 'Rigatoni all\'Amatriciana', desc: 'Rigatoni, guanciale, pomodoro, pecorino e peperoncino', price: '13€', tag: 'Icona' },
+          { name: 'Spaghetti alla Carbonara', desc: 'Spaghetti, guanciale, uovo, pecorino romano e pepe', price: '13€' },
+          { name: 'Bucatini alla Gricia', desc: 'Bucatini, guanciale, pecorino e pepe — la matrice di tutte le altre', price: '12€' }
+        ]
+      },
+      {
+        label: 'Secondi Piatti', icon: '🥩', note: 'I grandi classici della cucina capitolina, dalla brace al tegame',
+        items: [
+          { name: 'Coda alla Vaccinara', desc: 'Coda di manzo brasata con sedano, uvetta e pinoli', price: '18€', tag: 'Icona' },
+          { name: 'Spezzatino di Manzo', desc: 'Straccetti di manzo brasati al vino e pomodoro, serviti con patate', price: '16€', tag: 'Icona' },
+          { name: 'Saltimbocca alla Romana', desc: 'Vitello, prosciutto crudo, salvia e vino bianco', price: '17€' }
+        ]
+      }
+    ];
+
+    // Renderizzazione della Tabella degli Orari con calcolo del giorno "Oggi"
+    document.addEventListener("DOMContentLoaded", function() {
+      const todayIdx = (new Date().getDay() + 6) % 7; // Mappa Domenica=0 a fine array coerente con l'Italia
+      const timetable = document.getElementById('timetable-container');
+      
+      WEEK.forEach((d, i) => {
+        const isToday = i === todayIdx;
+        const row = document.createElement('div');
+        row.className = `grid grid-cols-[1.2fr_1fr_1fr] gap-2 px-5 py-4 items-center border-t border-gray-200 transition-colors ${isToday ? 'bg-[#C85A32]/10 font-semibold' : 'hover:bg-gray-50'}`;
+        row.innerHTML = `
+          <span class="font-serif text-lg text-gray-800 flex items-center gap-2">
+            ${d.day} ${isToday ? '<span class="text-[10px] uppercase tracking-wider font-sans font-semibold px-2 py-0.5 rounded-full bg-[#C85A32] text-white">Oggi</span>' : ''}
+          </span>
+          <span class="text-sm text-center text-gray-600">${d.lunch}</span>
+          <span class="text-sm text-center text-gray-600">${d.dinner}</span>
+        `;
+        timetable.appendChild(row);
+      });
+
+      // Renderizzazione Caratteristiche Accordion
+      const featContainer = document.getElementById('features-container');
+      FEATURES.forEach((f, idx) => {
+        const accents = ['border-amber-300', 'border-red-300', 'border-emerald-300'];
+        const currentAccent = accents[idx % accents.length];
+        
+        const card = document.createElement('div');
+        card.className = `rounded-2xl border ${currentAccent} bg-white overflow-hidden transition-all duration-300`;
+        card.innerHTML = `
+          <button onclick="toggleAccordion(this)" class="w-full flex items-center gap-4 p-5 text-left font-serif text-xl text-gray-800">
+            <span class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100">${f.icon}</span>
+            <span class="flex-1">${f.title}</span>
+            <span class="arrow transition-transform duration-300">▼</span>
+          </button>
+          <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <p class="px-5 pb-6 pt-2 sm:pl-20 text-sm text-gray-600 leading-relaxed">${f.body}</p>
+          </div>
+        `;
+        featContainer.appendChild(card);
+      });
+
+      // Renderizzazione Menù Accordion
+      const menuContainer = document.getElementById('menu-container');
+      MENU.forEach((m) => {
+        const section = document.createElement('div');
+        section.className = "rounded-2xl border border-gray-200 bg-white overflow-hidden transition-all duration-300";
+        
+        let itemsHtml = m.items.map(d => `
+          <div class="flex items-baseline gap-3 pb-4 border-b border-gray-100 last:border-0 last:pb-0">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="font-serif text-lg text-gray-800">${d.name}</h4>
+                ${d.tag ? `<span class="text-[10px] uppercase font-semibold px-2 py-0.5 rounded-full bg-red-50 text-red-600 border border-red-200">${d.tag}</span>` : ''}
+              </div>
+              <p class="text-xs text-gray-500 mt-1">${d.desc}</p>
+            </div>
+            <span class="font-serif text-lg text-[#C85A32]">${d.price}</span>
+          </div>
+        `).join('');
+
+        section.innerHTML = `
+          <button onclick="toggleAccordion(this)" class="w-full flex items-center gap-4 p-5 text-left">
+            <span class="w-12 h-12 flex items-center justify-center rounded-full bg-[#C85A32]/10 text-xl">${m.icon}</span>
+            <div class="flex-1">
+              <h3 class="font-serif text-2xl text-gray-800">${m.label}</h3>
+              <p class="text-xs text-gray-400 mt-0.5">${m.note}</p>
+            </div>
+            <span class="arrow transition-transform duration-300">▼</span>
+          </button>
+          <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-6 pt-2 space-y-4">${itemsHtml}</div>
+          </div>
+        `;
+        menuContainer.appendChild(section);
+      });
+
+      // Intersection Observer per animazioni Reveal
+      const els = document.querySelectorAll('[data-reveal]');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('reveal-in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      els.forEach((el) => io.observe(el));
+    });
+
+    // Funzioni Navbar e Menu Mobile Toggle
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      const iconBox = document.getElementById('nav-icon-box');
+      const title = document.getElementById('nav-title');
+      if (window.scrollY > 60) {
+        navbar.classList.value = "fixed top-0 inset-x-0 z-50 transition-all duration-500 py-3 bg-white/95 text-gray-800 shadow-md";
+        iconBox.classList.value = "flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center border border-[#C85A32] text-[#C85A32]";
+      } else {
+        navbar.classList.value = "fixed top-0 inset-x-0 z-50 transition-all duration-500 py-5 bg-transparent text-white";
+        iconBox.classList.value = "flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center border border-white/40 text-white";
+      }
+    }, { passive: true });
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // Gestore universale per l'apertura/chiusura degli Accordion (Toggle)
+    function toggleAccordion(btn) {
+      const content = btn.nextElementSibling;
+      const arrow = btn.querySelector('.arrow');
+      if (content.style.maxHeight && content.style.maxHeight !== "0px") {
+        content.style.maxHeight = "0px";
+        if(arrow) arrow.style.transform = "rotate(0deg)";
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+        if(arrow) arrow.style.transform = "rotate(180deg)";
+      }
+    }
+  </script>
+</body>
+</html>
 <body class="min-h-screen bg-[#FDFBF7] text-[#2D2A26] antialiased">
 
   <!-- NAV -->
@@ -50,7 +219,7 @@
         <span id="nav-icon-box" class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center border border-white/40 transition-colors duration-500">
           🍴
         </span>
-        <span class="font-serif text-lg md:text-xl tracking-wide">
+        <span id="nav-title" class="font-serif text-lg md:text-xl tracking-wide">
           Da Augusto
         </span>
       </a>
@@ -61,17 +230,17 @@
         <a href="#caratteristiche" class="text-sm tracking-wide transition-colors duration-300 hover:text-[#C85A32]">Caratteristiche</a>
         <a href="#menu" class="text-sm tracking-wide transition-colors duration-300 hover:text-[#C85A32]">Menù</a>
         <a href="#contatti" class="text-sm tracking-wide transition-colors duration-300 hover:text-[#C85A32]">Contatti</a>
-        <a href="tel:065803798" class="text-sm px-4 py-2 rounded-full bg-[#C85A32] text-white hover:bg-[#A04424] transition-colors duration-300 shadow-sm">
+        <a href="tel:0457255560" class="text-sm px-4 py-2 rounded-full bg-[#C85A32] text-white hover:bg-[#A04424] transition-colors duration-300 shadow-sm">
           Prenota
         </a>
       </nav>
 
       <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg" aria-label="Menu">
-        <span id="menu-icon">☰</span>
+        <span id="menu-icon" class="text-2xl">☰</span>
       </button>
     </div>
 
-    <!-- Mobile menu -->
+    <!-- Mobile Nav Open -->
     <div id="mobile-menu" class="hidden md:hidden overflow-hidden bg-[#FDFBF7] text-[#2D2A26] border-t border-gray-200">
       <nav class="px-5 py-4 flex flex-col gap-1">
         <a href="#benvenuto" onclick="toggleMobileMenu()" class="text-base py-2.5 px-3 rounded-lg hover:bg-gray-100 transition-colors">Benvenuto</a>
@@ -79,7 +248,7 @@
         <a href="#caratteristiche" onclick="toggleMobileMenu()" class="text-base py-2.5 px-3 rounded-lg hover:bg-gray-100 transition-colors">Caratteristiche</a>
         <a href="#menu" onclick="toggleMobileMenu()" class="text-base py-2.5 px-3 rounded-lg hover:bg-gray-100 transition-colors">Menù</a>
         <a href="#contatti" onclick="toggleMobileMenu()" class="text-base py-2.5 px-3 rounded-lg hover:bg-gray-100 transition-colors">Contatti</a>
-        <a href="tel:065803798" class="text-sm mt-2 px-4 py-2.5 rounded-full bg-[#C85A32] text-white text-center">
+        <a href="tel:0457255560" class="text-sm mt-2 px-4 py-2.5 rounded-full bg-[#C85A32] text-white text-center">
           Prenota un tavolo
         </a>
       </nav>
@@ -97,22 +266,18 @@
       <div class="flex items-center justify-center gap-1 mb-6 text-[#E29B7A]">
         ★★★★★
       </div>
-
       <p class="text-xs md:text-sm uppercase tracking-[0.4em] text-[#E29B7A] mb-5">
         Trastevere · Roma · dal 1945
       </p>
-
       <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.05] mb-5">
         Trattoria
         <span class="block italic text-[#E29B7A] text-6xl sm:text-7xl md:text-8xl lg:text-9xl mt-1">
           "Da Augusto"
         </span>
       </h1>
-
       <p class="font-serif text-xl md:text-2xl lg:text-3xl text-gray-200 italic mb-10 max-w-3xl mx-auto leading-snug">
         Attività a conduzione familiare con cucina casereccia e specialità carciofi
       </p>
-
       <div class="flex flex-wrap items-center justify-center gap-3 mb-12">
         <a href="#menu" class="text-sm px-7 py-3.5 rounded-full bg-[#C85A32] text-white hover:bg-[#B04E2A] transition-all duration-300 shadow-lg shadow-black/30 hover:-translate-y-0.5">
           Scopri il menù
@@ -121,16 +286,15 @@
           Prenota un tavolo
         </a>
       </div>
-
       <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs md:text-sm text-gray-300">
-        <span class="flex items-center gap-1.5">📍 P.za de' Renzi, 15 — Roma</span>
-        <span class="flex items-center gap-1.5">🕒 12:30–15:00 · 19:30–23:00</span>
-        <span class="flex items-center gap-1.5">📞 06 5803798</span>
+        <span>📍 P.za de' Renzi, 15 — Roma</span>
+        <span>🕒 12:30–15 · 19:30–23</span>
+        <span>📞 0457255560</span>
       </div>
     </div>
   </section>
 
-  <!-- BENVENUTO TESTO -->
+  <!-- SEZIONE BENVENUTO TESTO -->
   <section class="relative py-24 md:py-32 bg-[#FDFBF7]">
     <div class="max-w-4xl mx-auto px-5 md:px-8">
       <div class="flex items-center gap-3 justify-center mb-4" data-reveal>
@@ -138,124 +302,216 @@
         <span class="text-xs uppercase tracking-[0.25em] text-[#C85A32] font-semibold">Benvenuti</span>
         <span class="h-px w-10 bg-[#C85A32]/60"></span>
       </div>
-      
       <h2 class="font-serif text-3xl md:text-5xl text-[#2D2A26] text-center mb-10 leading-tight" data-reveal>
         Un'istituzione romana,
         <span class="block italic text-[#C85A32]">custode di un tempo che non torna</span>
       </h2>
-
-      <div class="relative" data-reveal>
-        <p class="font-serif text-xl md:text-2xl lg:text-[1.6rem] text-gray-700 leading-[1.7] italic text-center px-4">
-          "Situata nel cuore pulsante di Trastevere, la trattoria Da Augusto è una vera e propria
-          istituzione romana che custodisce intatto il fascino autentico e verace delle vecchie
-          osterie di un tempo. Il locale conquista al primo impatto per la sua atmosfera spartana,
-          caotica e schietta, dove i tavoli ravvicinati invitano alla convivialità..."
+      <div class="relative text-center" data-reveal>
+        <p class="font-serif text-xl md:text-2xl lg:text-[1.7rem] text-gray-700 leading-[1.7] italic px-4">
+          "Situata nel cuore pulsante di Trastevere, la trattoria Da Augusto è una vera e propria istituzione romana che custodisce intatto il fascino autentico e verace delle vecchie osterie di un tempo..."
         </p>
       </div>
+      <div class="mt-14 grid sm:grid-cols-2 gap-6 max-w-xl mx-auto" data-reveal>
+        <div class="text-center">
+          <p class="font-serif text-4xl md:text-5xl text-[#C85A32]">80+</p>
+          <p class="text-sm uppercase tracking-wider text-gray-400 mt-1">Anni di storia</p>
+        </div>
+        <div class="text-center">
+          <p class="font-serif text-4xl md:text-5xl text-[#C85A32]">3</p>
+          <p class="text-sm uppercase tracking-wider text-gray-400 mt-1">Generazioni in cucina</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- SEZIONE MENU COMPLETA -->
-  <section id="menu" class="py-20 bg-[#F7F4EB] border-t border-gray-200">
-    <div class="max-w-3xl mx-auto px-5">
+  <!-- IMMAGINE INTERMEDIA -->
+  <section class="relative h-[55vh] md:h-[70vh] overflow-hidden">
+    <img src="https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Sala" class="w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black/45"></div>
+    <div class="absolute inset-0 flex items-center justify-center px-5">
+      <p class="italic text-white text-3xl md:text-5xl lg:text-6xl text-center max-w-3xl font-serif" data-reveal>
+        "I tavoli ravvicinati invitano alla convivialità <span class="block text-[#E29B7A]">e a riscoprire il piacere della semplicità."</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- SEZIONE ORARI -->
+  <section id="orari" class="py-24 md:py-32 bg-[#F7F4EB]">
+    <div class="max-w-5xl mx-auto px-5 md:px-8">
       <div class="flex items-center gap-3 justify-center mb-4" data-reveal>
         <span class="h-px w-10 bg-[#C85A32]/60"></span>
-        <span class="text-xs uppercase tracking-[0.25em] text-[#C85A32] font-semibold">Le Nostre Proposte</span>
+        <span class="text-xs uppercase tracking-[0.25em] text-[#C85A32] font-semibold">Apertura</span>
         <span class="h-px w-10 bg-[#C85A32]/60"></span>
       </div>
-      <h2 class="font-serif text-3xl md:text-4xl text-center mb-12">Il Menù della Tradizione</h2>
+      <h2 class="font-serif text-3xl md:text-5xl text-center mb-4" data-reveal>Orari di apertura</h2>
+      <p class="text-center text-gray-500 mb-12 max-w-xl mx-auto" data-reveal>Aperti tutti i giorni, a pranzo e a cena. La cucina chiude 30 minuti prima della sala.</p>
 
-      <!-- Antipasti -->
-      <div class="mb-6 rounded-2xl border border-gray-200 bg-white p-5" data-reveal>
-        <h3 class="font-serif text-2xl text-[#2D2A26] mb-4 flex items-center gap-2">🥗 Antipasti</h3>
-        <div class="space-y-4">
-          <div class="flex justify-between items-baseline border-b border-gray-100 pb-2">
-            <div>
-              <h4 class="font-serif text-lg font-medium">Carciofi alla Giudia <span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full ml-2">Specialità</span></h4>
-              <p class="text-sm text-gray-500">Carciofi romaneschi fritti in olio extravergine, croccanti</p>
-            </div>
-            <span class="font-serif text-lg text-[#C85A32]">12€</span>
+      <div class="grid md:grid-cols-[1fr_auto] gap-8 items-start">
+        <!-- Tabella Giorni Dinamica -->
+        <div id="timetable-container" class="rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm" data-reveal>
+          <div class="grid grid-cols-[1.2fr_1fr_1fr] gap-2 px-5 py-3 bg-[#2D2A26] text-white text-xs uppercase tracking-wider">
+            <span>Giorno</span><span class="text-center">Pranzo</span><span class="text-center">Cena</span>
           </div>
-          <div class="flex justify-between items-baseline">
-            <div>
-              <h4 class="font-serif text-lg font-medium">Supplì al Telefono</h4>
-              <p class="text-sm text-gray-500">Riso al pomodoro con cuore di mozzarella filante</p>
-            </div>
-            <span class="font-serif text-lg text-[#C85A32]">6€</span>
-          </div>
+          <!-- Generato via JavaScript -->
         </div>
-      </div>
 
-      <!-- Primi -->
-      <div class="mb-6 rounded-2xl border border-gray-200 bg-white p-5" data-reveal>
-        <h3 class="font-serif text-2xl text-[#2D2A26] mb-4 flex items-center gap-2">🍝 Primi Piatti</h3>
-        <div class="space-y-4">
-          <div class="flex justify-between items-baseline border-b border-gray-100 pb-2">
-            <div>
-              <h4 class="font-serif text-lg font-medium">Tonnarelli Cacio e Pepe <span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full ml-2">Icona</span></h4>
-              <p class="text-sm text-gray-500">Pecorino romano DOP e pepe nero macinato al momento</p>
-            </div>
-            <span class="font-serif text-lg text-[#C85A32]">12€</span>
+        <div class="md:w-64 space-y-4" data-reveal>
+          <div class="rounded-2xl bg-[#2D2A26] text-white p-6">
+            <h3 class="font-serif text-xl mb-1">Servizio continuato</h3>
+            <p class="text-sm text-gray-300">Dalle 12:30 alle 23:00 senza interruzioni, per accogliervi a ogni ora.</p>
           </div>
-          <div class="flex justify-between items-baseline">
-            <div>
-              <h4 class="font-serif text-lg font-medium">Rigatoni all'Amatriciana</h4>
-              <p class="text-sm text-gray-500">Guanciale croccante, pomodoro, pecorino romano</p>
-            </div>
-            <span class="font-serif text-lg text-[#C85A32]">13€</span>
+          <div class="rounded-2xl bg-[#C85A32] text-cream-50 p-6 text-white">
+            <h3 class="font-serif text-xl mb-1">Prenotazione consigliata</h3>
+            <p class="text-sm text-white/90">Nei weekend e nelle sere di punta i tempi di attesa possono prolungarsi.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- JAVASCRIPT VANILLA -->
-  <script>
-    // Gestione dello Scroll della Navbar
-    window.addEventListener('scroll', function() {
-      const navbar = document.getElementById('navbar');
-      const iconBox = document.getElementById('nav-icon-box');
+  <!-- CARATTERISTICHE (TOGGLE ACCORDION) -->
+  <section id="caratteristiche" class="py-24 md:py-32 bg-[#FDFBF7]">
+    <div class="max-w-4xl mx-auto px-5 md:px-8">
+      <div class="flex items-center gap-3 justify-center mb-4" data-reveal>
+        <span class="h-px w-10 bg-[#C85A32]/60"></span>
+        <span class="text-xs uppercase tracking-[0.25em] text-[#C85A32] font-semibold">La nostra casa</span>
+        <span class="h-px w-10 bg-[#C85A32]/60"></span>
+      </div>
+      <h2 class="font-serif text-3xl md:text-5xl text-center mb-12" data-reveal>Caratteristiche</h2>
       
-      if (window.scrollY > 60) {
-        navbar.classList.remove('bg-transparent', 'text-white', 'py-5');
-        navbar.classList.add('bg-[#FDFBF7]/95', 'text-[#2D2A26]', 'py-3', 'shadow-md');
-        iconBox.classList.remove('border-white/40');
-        iconBox.classList.add('border-[#C85A32]', 'text-[#C85A32]');
-      } else {
-        navbar.classList.remove('bg-[#FDFBF7]/95', 'text-[#2D2A26]', 'py-3', 'shadow-md');
-        navbar.classList.add('bg-transparent', 'text-white', 'py-5');
-        iconBox.classList.remove('border-[#C85A32]', 'text-[#C85A32]');
-        iconBox.classList.add('border-white/40');
-      }
-    }, { passive: true });
+      <div id="features-container" class="space-y-4">
+        <!-- Generato via JavaScript -->
+      </div>
+    </div>
+  </section>
 
-    // Menu Mobile toggle
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobile-menu');
-      const icon = document.getElementById('menu-icon');
-      if (menu.classList.contains('hidden')) {
-        menu.classList.remove('hidden');
-        icon.textContent = '✕';
-      } else {
-        menu.classList.add('hidden');
-        icon.textContent = '☰';
-      }
-    }
+  <!-- GALLERY STRIP -->
+  <section class="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-2 bg-gray-200">
+    <div class="relative aspect-[4/3] md:aspect-[16/10] overflow-hidden group">
+      <img src="https://images.pexels.com/photos/1435906/pexels-photo-1435906.jpeg?auto=compress&cs=tinysrgb&w=1000" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+    </div>
+    <div class="relative aspect-[4/3] md:aspect-[16/10] overflow-hidden group">
+      <img src="https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=1000" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+    </div>
+    <div class="relative aspect-[4/3] md:aspect-[16/10] overflow-hidden group">
+      <img src="https://images.pexels.com/photos/3132675/pexels-photo-3132675.jpeg?auto=compress&cs=tinysrgb&w=1000" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+    </div>
+  </section>
 
-    // Intersection Observer per le Animazioni Reveal al caricamento/scroll
-    document.addEventListener("DOMContentLoaded", function() {
-      const els = document.querySelectorAll('[data-reveal]');
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('reveal-in');
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.15 });
+  <!-- IL MENU FINALE -->
+  <section id="menu" class="py-24 md:py-32 bg-[#F7F4EB]">
+    <div class="max-w-4xl mx-auto px-5 md:px-8">
+      <div class="flex items-center gap-3 justify-center mb-4" data-reveal>
+        <span class="h-px w-10 bg-[#C85A32]/60"></span>
+        <span class="text-xs uppercase tracking-[0.25em] text-[#C85A32] font-semibold">La cucina</span>
+        <span class="h-px w-10 bg-[#C85A32]/60"></span>
+      </div>
+      <h2 class="font-serif text-3xl md:text-5xl text-center mb-4" data-reveal>Il Menù</h2>
+      <p class="text-center text-gray-500 mb-12 max-w-xl mx-auto" data-reveal>La rigorosa tradizione culinaria capitolina, preparata secondo ricette tramandate nel tempo.</p>
       
-      els.forEach((el) => io.observe(el));
-    });
-  </script>
-</body>
-</html>
+      <div id="menu-container" class="space-y-4">
+        <!-- Generato via JavaScript -->
+      </div>
+    </div>
+  </section>
+  <!-- CONTATTI -->
+  <section id="contatti" class="py-24 md:py-32 bg-[#1A1816] text-[#F4F1EA] relative overflow-hidden">
+    <div class="absolute inset-0 bg-opacity-20 mix-blend-overlay pointer-events-none"></div>
+    <div class="absolute -top-20 left-1/3 w-80 h-80 rounded-full bg-[#C85A32]/10 blur-3xl pointer-events-none"></div>
+    
+    <div class="max-w-6xl mx-auto px-5 md:px-8 relative">
+      <div class="flex items-center gap-3 justify-center mb-4" data-reveal>
+        <span class="h-px w-10 bg-[#E29B7A]/60"></span>
+        <span class="font-sans text-xs uppercase tracking-[0.25em] text-[#E29B7A] font-semibold">
+          Venite a trovarci
+        </span>
+        <span class="h-px w-10 bg-[#E29B7A]/60"></span>
+      </div>
+      <h2 class="font-serif text-3xl md:text-5xl text-white text-center mb-4" data-reveal>
+        Contatti & Indirizzo
+      </h2>
+      <p class="font-sans text-center text-[#F4F1EA]/70 mb-14 max-w-xl mx-auto" data-reveal>
+        Nel cuore di Trastevere, a pochi passi da Piazza de' Renzi. Vi aspettiamo.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-5">
+        <!-- Indirizzo -->
+        <a href="https://maps.google.com/?q=P.za+de+Renzi+15+00153+Roma" target="_blank" rel="noreferrer" class="group rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 backdrop-blur-sm p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#E29B7A]/50" data-reveal>
+          <span class="flex w-12 h-12 rounded-full bg-[#C85A32]/20 text-[#E29B7A] items-center justify-center mb-4 group-hover:bg-[#C85A32] group-hover:text-white transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <h3 class="font-serif text-xl text-white mb-1">Indirizzo</h3>
+          <p class="font-sans text-[#F4F1EA]/80 leading-relaxed">
+            P.za de' Renzi, 15<br />00153 Roma RM
+          </p>
+          <span class="inline-block mt-3 font-sans text-xs text-[#E29B7A] group-hover:text-[#F4F1EA]">
+            Apri in Maps →
+          </span>
+        </a>
+
+        <!-- Telefono -->
+        <a href="tel:0457255560" class="group rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 backdrop-blur-sm p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#E29B7A]/50" data-reveal>
+          <span class="flex w-12 h-12 rounded-full bg-[#C85A32]/20 text-[#E29B7A] items-center justify-center mb-4 group-hover:bg-[#C85A32] group-hover:text-white transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </span>
+          <h3 class="font-serif text-xl text-white mb-1">Telefono</h3>
+          <p class="font-sans text-[#F4F1EA]/80 leading-relaxed">0457255560</p>
+          <span class="inline-block mt-3 font-sans text-xs text-[#E29B7A] group-hover:text-[#F4F1EA]">
+            Chiama ora →
+          </span>
+        </a>
+
+        <!-- Email -->
+        <a href="mailto:trattoriadaaugusto@gmail.com" class="group rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 backdrop-blur-sm p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#E29B7A]/50" data-reveal>
+          <span class="flex w-12 h-12 rounded-full bg-[#C85A32]/20 text-[#E29B7A] items-center justify-center mb-4 group-hover:bg-[#C85A32] group-hover:text-white transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </span>
+          <h3 class="font-serif text-xl text-white mb-1">Email</h3>
+          <p class="font-sans text-[#F4F1EA]/80 leading-relaxed break-all">
+            trattoriadaaugusto@gmail.com
+          </p>
+          <span class="inline-block mt-3 font-sans text-xs text-[#E29B7A] group-hover:text-[#F4F1EA]">
+            Scrivici →
+          </span>
+        </a>
+
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/trattoriadaaugusto" target="_blank" rel="noreferrer" class="group rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 backdrop-blur-sm p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#E29B7A]/50" data-reveal>
+          <span class="flex w-12 h-12 rounded-full bg-[#C85A32]/20 text-[#E29B7A] items-center justify-center mb-4 group-hover:bg-[#C85A32] group-hover:text-white transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </span>
+          <h3 class="font-serif text-xl text-white mb-1">Facebook</h3>
+          <p class="font-sans text-[#F4F1EA]/80 leading-relaxed break-all">
+            /trattoriadaaugusto
+          </p>
+          <span class="inline-block mt-3 font-sans text-xs text-[#E29B7A] group-hover:text-[#F4F1EA]">
+            Visita la pagina →
+          </span>
+        </a>
+      </div>
+
+      <!-- Mappa OpenStreetMap -->
+      <div class="mt-10 rounded-2xl overflow-hidden border border-white/15 h-64 md:h-80 group" data-reveal>
+        <iframe title="Mappa Trattoria Da Augusto" src="https://www.openstreetmap.org/export/embed.html?bbox=12.4685%2C41.8905%2C12.4765%2C41.8945&amp;layer=mapnik&amp;marker=41.8925%2C12.4725" class="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#1A1816] border-t border-white/10 py-10">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2.5">
+        <span class="w-9 h-9 rounded-full flex items-center justify-center border border-[#E29B7A]/60 text-[#E29B7A]">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m16 2 4 4-4 4"/><path d="M12 5h8"/><path d="M11 19H3l3.6-3.6a5 5 0 0 1 7.07 0L15 17.1"/><path d="M21 16v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5"/></svg>
+        </span>
+        <div>
+          <p class="font-serif text-white leading-tight">Trattoria "Da Augusto"</p>
+          <p class="font-sans text-xs text-[#F4F1EA]/50">Trastevere · Roma</p>
+        </div>
+      </div>
+      <p class="font-sans text-xs text-[#F4F1EA]/50 text-center md:text-right">
+        Cucina casereccia a conduzione familiare · Specialità carciofi
+        <span id="copyright-year" class="block mt-1">© 2026 Trattoria Da Augusto. Tutti i diritti riservati.</span>
+      </p>
+    </div>
+  </footer>
