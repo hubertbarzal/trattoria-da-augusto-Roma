@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trattoria "Da Augusto" - Trastevere</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  
+  <!-- Google Fonts per Font Serif ed Eleganti -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-serif {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    /* Reveal Animations */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);
+    }
+    [data-reveal].reveal-in {
+      opacity: 1;
+      transform: none;
+    }
+    
+    @keyframes slowZoom {
+      from { transform: scale(1); }
+      to { transform: scale(1.08); }
+    }
+    .animate-slow-zoom {
+      animation: slowZoom 20s ease infinite alternate;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#FDFBF7] text-[#2D2A26] antialiased">
+
+  <!-- NAV -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-500 py-5 bg-transparent text-white">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 flex items-center justify-between">
+      <a href="#benvenuto" class="flex items-center gap-2.5 group">
+        <span id="nav-icon-box" class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center border border-white/40 transition-colors duration-500">
+          🍴
+        </span>
+        <span class="font-serif text-lg md:text-xl tracking-wide">
+          Da Augusto
+        </span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#benvenuto" class="text-sm tracking-wide transition-colors duration-300 hover:text-[#C85A32]">Benvenuto</a>
+        <a href="#orari" class="text-sm tracking-wide transition-colors duration-300 hover:text-[#C85A32]">Orari</a>
+        <a href="#caratteristiche" class="text-sm tracking-wide transition-colors duration-300 hover:text-[#C85A32]">Caratteristiche</a>
+        <a href="#menu" class="text-sm tracking-wide transition-colors duration-300 hover:text-[#C85A32]">Menù</a>
+        <a href="#contatti" class="text-sm tracking-wide transition-colors duration-300 hover:text-[#C85A32]">Contatti</a>
+        <a href="tel:065803798" class="text-sm px-4 py-2 rounded-full bg-[#C85A32] text-white hover:bg-[#A04424] transition-colors duration-300 shadow-sm">
+          Prenota
+        </a>
+      </nav>
+
+      <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg" aria-label="Menu">
+        <span id="menu-icon">☰</span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden overflow-hidden bg-[#FDFBF7] text-[#2D2A26] border-t border-gray-200">
+      <nav class="px-5 py-4 flex flex-col gap-1">
+        <a href="#benvenuto" onclick="toggleMobileMenu()" class="text-base py-2.5 px-3 rounded-lg hover:bg-gray-100 transition-colors">Benvenuto</a>
+        <a href="#orari" onclick="toggleMobileMenu()" class="text-base py-2.5 px-3 rounded-lg hover:bg-gray-100 transition-colors">Orari</a>
+        <a href="#caratteristiche" onclick="toggleMobileMenu()" class="text-base py-2.5 px-3 rounded-lg hover:bg-gray-100 transition-colors">Caratteristiche</a>
+        <a href="#menu" onclick="toggleMobileMenu()" class="text-base py-2.5 px-3 rounded-lg hover:bg-gray-100 transition-colors">Menù</a>
+        <a href="#contatti" onclick="toggleMobileMenu()" class="text-base py-2.5 px-3 rounded-lg hover:bg-gray-100 transition-colors">Contatti</a>
+        <a href="tel:065803798" class="text-sm mt-2 px-4 py-2.5 rounded-full bg-[#C85A32] text-white text-center">
+          Prenota un tavolo
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="benvenuto" class="relative min-h-screen flex items-center overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="https://images.pexels.com/photos/2664216/pexels-photo-2664216.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Interno della trattoria" class="w-full h-full object-cover animate-slow-zoom" />
+      <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/55 to-black/85"></div>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-5 md:px-8 py-32 text-center text-white">
+      <div class="flex items-center justify-center gap-1 mb-6 text-[#E29B7A]">
+        ★★★★★
+      </div>
+
+      <p class="text-xs md:text-sm uppercase tracking-[0.4em] text-[#E29B7A] mb-5">
+        Trastevere · Roma · dal 1945
+      </p>
+
+      <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.05] mb-5">
+        Trattoria
+        <span class="block italic text-[#E29B7A] text-6xl sm:text-7xl md:text-8xl lg:text-9xl mt-1">
+          "Da Augusto"
+        </span>
+      </h1>
+
+      <p class="font-serif text-xl md:text-2xl lg:text-3xl text-gray-200 italic mb-10 max-w-3xl mx-auto leading-snug">
+        Attività a conduzione familiare con cucina casereccia e specialità carciofi
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-12">
+        <a href="#menu" class="text-sm px-7 py-3.5 rounded-full bg-[#C85A32] text-white hover:bg-[#B04E2A] transition-all duration-300 shadow-lg shadow-black/30 hover:-translate-y-0.5">
+          Scopri il menù
+        </a>
+        <a href="#contatti" class="text-sm px-7 py-3.5 rounded-full border border-white/40 text-white hover:bg-white/10 transition-all duration-300 hover:-translate-y-0.5">
+          Prenota un tavolo
+        </a>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs md:text-sm text-gray-300">
+        <span class="flex items-center gap-1.5">📍 P.za de' Renzi, 15 — Roma</span>
+        <span class="flex items-center gap-1.5">🕒 12:30–15:00 · 19:30–23:00</span>
+        <span class="flex items-center gap-1.5">📞 06 5803798</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENVENUTO TESTO -->
+  <section class="relative py-24 md:py-32 bg-[#FDFBF7]">
+    <div class="max-w-4xl mx-auto px-5 md:px-8">
+      <div class="flex items-center gap-3 justify-center mb-4" data-reveal>
+        <span class="h-px w-10 bg-[#C85A32]/60"></span>
+        <span class="text-xs uppercase tracking-[0.25em] text-[#C85A32] font-semibold">Benvenuti</span>
+        <span class="h-px w-10 bg-[#C85A32]/60"></span>
+      </div>
+      
+      <h2 class="font-serif text-3xl md:text-5xl text-[#2D2A26] text-center mb-10 leading-tight" data-reveal>
+        Un'istituzione romana,
+        <span class="block italic text-[#C85A32]">custode di un tempo che non torna</span>
+      </h2>
+
+      <div class="relative" data-reveal>
+        <p class="font-serif text-xl md:text-2xl lg:text-[1.6rem] text-gray-700 leading-[1.7] italic text-center px-4">
+          "Situata nel cuore pulsante di Trastevere, la trattoria Da Augusto è una vera e propria
+          istituzione romana che custodisce intatto il fascino autentico e verace delle vecchie
+          osterie di un tempo. Il locale conquista al primo impatto per la sua atmosfera spartana,
+          caotica e schietta, dove i tavoli ravvicinati invitano alla convivialità..."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEZIONE MENU COMPLETA -->
+  <section id="menu" class="py-20 bg-[#F7F4EB] border-t border-gray-200">
+    <div class="max-w-3xl mx-auto px-5">
+      <div class="flex items-center gap-3 justify-center mb-4" data-reveal>
+        <span class="h-px w-10 bg-[#C85A32]/60"></span>
+        <span class="text-xs uppercase tracking-[0.25em] text-[#C85A32] font-semibold">Le Nostre Proposte</span>
+        <span class="h-px w-10 bg-[#C85A32]/60"></span>
+      </div>
+      <h2 class="font-serif text-3xl md:text-4xl text-center mb-12">Il Menù della Tradizione</h2>
+
+      <!-- Antipasti -->
+      <div class="mb-6 rounded-2xl border border-gray-200 bg-white p-5" data-reveal>
+        <h3 class="font-serif text-2xl text-[#2D2A26] mb-4 flex items-center gap-2">🥗 Antipasti</h3>
+        <div class="space-y-4">
+          <div class="flex justify-between items-baseline border-b border-gray-100 pb-2">
+            <div>
+              <h4 class="font-serif text-lg font-medium">Carciofi alla Giudia <span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full ml-2">Specialità</span></h4>
+              <p class="text-sm text-gray-500">Carciofi romaneschi fritti in olio extravergine, croccanti</p>
+            </div>
+            <span class="font-serif text-lg text-[#C85A32]">12€</span>
+          </div>
+          <div class="flex justify-between items-baseline">
+            <div>
+              <h4 class="font-serif text-lg font-medium">Supplì al Telefono</h4>
+              <p class="text-sm text-gray-500">Riso al pomodoro con cuore di mozzarella filante</p>
+            </div>
+            <span class="font-serif text-lg text-[#C85A32]">6€</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Primi -->
+      <div class="mb-6 rounded-2xl border border-gray-200 bg-white p-5" data-reveal>
+        <h3 class="font-serif text-2xl text-[#2D2A26] mb-4 flex items-center gap-2">🍝 Primi Piatti</h3>
+        <div class="space-y-4">
+          <div class="flex justify-between items-baseline border-b border-gray-100 pb-2">
+            <div>
+              <h4 class="font-serif text-lg font-medium">Tonnarelli Cacio e Pepe <span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full ml-2">Icona</span></h4>
+              <p class="text-sm text-gray-500">Pecorino romano DOP e pepe nero macinato al momento</p>
+            </div>
+            <span class="font-serif text-lg text-[#C85A32]">12€</span>
+          </div>
+          <div class="flex justify-between items-baseline">
+            <div>
+              <h4 class="font-serif text-lg font-medium">Rigatoni all'Amatriciana</h4>
+              <p class="text-sm text-gray-500">Guanciale croccante, pomodoro, pecorino romano</p>
+            </div>
+            <span class="font-serif text-lg text-[#C85A32]">13€</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JAVASCRIPT VANILLA -->
+  <script>
+    // Gestione dello Scroll della Navbar
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      const iconBox = document.getElementById('nav-icon-box');
+      
+      if (window.scrollY > 60) {
+        navbar.classList.remove('bg-transparent', 'text-white', 'py-5');
+        navbar.classList.add('bg-[#FDFBF7]/95', 'text-[#2D2A26]', 'py-3', 'shadow-md');
+        iconBox.classList.remove('border-white/40');
+        iconBox.classList.add('border-[#C85A32]', 'text-[#C85A32]');
+      } else {
+        navbar.classList.remove('bg-[#FDFBF7]/95', 'text-[#2D2A26]', 'py-3', 'shadow-md');
+        navbar.classList.add('bg-transparent', 'text-white', 'py-5');
+        iconBox.classList.remove('border-[#C85A32]', 'text-[#C85A32]');
+        iconBox.classList.add('border-white/40');
+      }
+    }, { passive: true });
+
+    // Menu Mobile toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const icon = document.getElementById('menu-icon');
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        icon.textContent = '✕';
+      } else {
+        menu.classList.add('hidden');
+        icon.textContent = '☰';
+      }
+    }
+
+    // Intersection Observer per le Animazioni Reveal al caricamento/scroll
+    document.addEventListener("DOMContentLoaded", function() {
+      const els = document.querySelectorAll('[data-reveal]');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('reveal-in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      
+      els.forEach((el) => io.observe(el));
+    });
+  </script>
+</body>
+</html>
